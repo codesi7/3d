@@ -1,0 +1,545 @@
+@import "tailwindcss";
+
+/* ------------------------- Original Two26 Studio Fonts ------------------------- */
+@font-face {
+  font-family: "MDNichrome";
+  src: url("/two26/fonts/MDNichromeTest-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MDNichrome Dark";
+  src: url("/two26/fonts/MDNichromeTest-Dark.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/two26/fonts/NeueMontreal-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/two26/fonts/NeueMontreal-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ------------------------- Design Tokens & Fluid Scaling ------------------------- */
+:root {
+  --brand-primary: #ff5400;
+  --brand-secondary: #f8eee8;
+  --brand-white: #fdf8f5;
+  --brand-accent: #f9e2e1;
+  --brand-black: #000000;
+  --brand-purple: #000000;
+
+  --font-primary: "MDNichrome", "Arial Narrow", Arial, sans-serif;
+  --font-primary-dark: "MDNichrome Dark", "Arial Narrow", Arial, sans-serif;
+  --font-secondary: "Neue Montreal", "Helvetica Neue", Arial, sans-serif;
+
+  /* Fluid proportional scaling matching two26.studio */
+  --size-unit: 16;
+  --size-container-ideal: 1440;
+  --size-container-min: 992px;
+  --size-container-max: 1920px;
+  --size-container: clamp(var(--size-container-min), 100vw, var(--size-container-max));
+  --size-font: calc(var(--size-container) / (var(--size-container-ideal) / var(--size-unit)));
+}
+
+@media screen and (max-width: 991px) {
+  :root {
+    --size-container-ideal: 834;
+    --size-container-min: 768px;
+    --size-container-max: 991px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  :root {
+    --size-container-ideal: 550;
+    --size-container-min: 480px;
+    --size-container-max: 767px;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  :root {
+    --size-container-ideal: 390;
+    --size-container-min: 320px;
+    --size-container-max: 479px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--brand-secondary);
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: var(--size-font);
+  font-family: var(--font-secondary);
+  background-color: var(--brand-secondary);
+  color: var(--brand-black);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom selection color */
+::selection {
+  background-color: var(--brand-primary);
+  color: var(--brand-white);
+}
+
+/* Font family utility classes */
+.font-display {
+  font-family: var(--font-primary);
+}
+
+.font-display-dark {
+  font-family: var(--font-primary-dark);
+}
+
+.font-sans-body {
+  font-family: var(--font-secondary);
+}
+
+/* ------------------------- Header & Nav ------------------------- */
+.two26-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  width: 100%;
+  pointer-events: none;
+}
+
+.two26-navbar-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1.25em 1.125em 1.125em;
+  position: relative;
+  z-index: 2;
+}
+
+.two26-navbar-wrap > * {
+  pointer-events: auto;
+}
+
+.two26-nav-btn {
+  background-color: var(--brand-white);
+  border-radius: 100px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.25em;
+  padding: 0 1.25em;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.two26-nav-btn .stroke-fill {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  color: var(--brand-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.two26-nav-btn .navlink-text {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-secondary);
+  font-size: 0.875em;
+  font-weight: 500;
+  color: var(--brand-black);
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.two26-nav-btn:hover .navlink-text {
+  color: var(--brand-white);
+}
+
+/* ------------------------- Hero Section ------------------------- */
+.two26-hero-wrapper {
+  background-color: #fae3e2;
+  background-image: linear-gradient(180deg, #fae3e2 73%, var(--brand-secondary));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-top: 6em;
+  position: relative;
+  overflow: hidden;
+}
+
+.two26-hero-heading {
+  font-family: var(--font-primary);
+  color: var(--brand-primary);
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 8em;
+  font-weight: 700;
+  line-height: 0.8;
+  margin: 0;
+}
+
+.two26-hero-pill {
+  background-color: var(--brand-black);
+  border-radius: 100px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em 1.5em;
+  position: absolute;
+  z-index: 3;
+}
+
+.two26-hero-pill-text {
+  font-family: var(--font-secondary);
+  color: var(--brand-accent);
+  font-size: 1em;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.two26-hero-marquee-text,
+.two26-hero-marquee-text textPath,
+.two26-hero-marquee-text tspan {
+  dominant-baseline: central;
+  alignment-baseline: central;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ------------------------- About Section ------------------------- */
+.two26-about-para {
+  max-width: 13em;
+  font-family: var(--font-primary-dark);
+  color: var(--brand-black);
+  text-align: center;
+  letter-spacing: -0.02em;
+  font-size: 5em;
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.two26-about-pill {
+  background-color: var(--brand-primary);
+  border-radius: 100px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.65em 1.5em;
+  position: absolute;
+  z-index: 4;
+}
+
+/* ------------------------- Section Headings (Magnetic Double Layer) ------------------------- */
+.two26-section-heading {
+  font-family: var(--font-primary-dark);
+  color: var(--brand-black);
+  text-transform: uppercase;
+  font-size: 6.25em;
+  font-weight: 400;
+  line-height: 0.85;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.two26-section-heading-shadow {
+  font-family: var(--font-primary-dark);
+  color: var(--brand-primary);
+  text-transform: uppercase;
+  font-size: 6.25em;
+  font-weight: 400;
+  line-height: 0.85;
+  margin: 0;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ------------------------- Projects Section ------------------------- */
+.two26-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2em;
+  width: 100%;
+}
+
+.two26-project-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 43em;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.two26-project-img-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 1em;
+  overflow: hidden;
+  flex: 1;
+}
+
+.two26-projects-end-para {
+  max-width: 8em;
+  font-family: var(--font-primary-dark);
+  color: var(--brand-primary);
+  text-align: center;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  font-size: 5em;
+  font-weight: 400;
+  line-height: 0.85;
+  margin: 0;
+}
+
+/* ------------------------- Services Section ------------------------- */
+.two26-service-block {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 0.85em;
+  position: relative;
+}
+
+.two26-service-text {
+  font-family: var(--font-primary-dark);
+  color: var(--brand-primary);
+  text-transform: uppercase;
+  font-size: 5em;
+  line-height: 0.8;
+  white-space: nowrap;
+}
+
+.two26-service-para-pill {
+  border: 1px solid var(--brand-primary);
+  background-color: var(--brand-white);
+  border-radius: 100px;
+  max-width: 18em;
+  padding: 0.75em 1.25em;
+  position: absolute;
+  bottom: -2.4em;
+  right: -4em;
+  transform: rotate(-5deg);
+  z-index: 5;
+  box-shadow: 0 8px 24px rgba(255, 84, 0, 0.08);
+}
+
+.two26-service-block.one { right: -27%; }
+.two26-service-block.two { left: -17%; }
+.two26-service-block.three { right: -5%; }
+.two26-service-block.four { right: -30%; }
+.two26-service-block.five { left: -10%; }
+.two26-service-block.six { right: -20%; }
+.two26-service-block.seven { left: -21%; }
+
+/* ------------------------- Testimonials Deck ------------------------- */
+.two26-testimonial-stage {
+  background-color: var(--brand-primary);
+  border-radius: 1em;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.two26-testimonial-card {
+  border: 1px solid var(--brand-primary);
+  background-color: var(--brand-white);
+  border-radius: 1em;
+  padding: 2.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3.75em;
+  width: 52em;
+  max-width: calc(100vw - 4em);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+}
+
+/* ------------------------- FAQ Chat Bubbles ------------------------- */
+.two26-question-bubble {
+  border-style: solid;
+  border-color: var(--brand-primary);
+  background-color: #f2e3da;
+  border-top-left-radius: 5em;
+  border-top-right-radius: 5em;
+  border-bottom-right-radius: 5em;
+  border-bottom-left-radius: 0;
+  padding: 1.25em 2em;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.two26-question-bubble:hover {
+  background-color: #ecd8cc;
+}
+
+.two26-answer-bubble {
+  background-color: var(--brand-secondary);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 2em;
+  border-top-right-radius: 2em;
+  border-bottom-left-radius: 2em;
+  border-bottom-right-radius: 0;
+  width: 68%;
+  padding: 1.5em 3.5em 1.5em 2em;
+  line-height: 1.32;
+}
+
+/* ------------------------- Responsive Breakpoints ------------------------- */
+@media screen and (max-width: 991px) {
+  .two26-hero-heading {
+    font-size: 7em;
+  }
+  .two26-about-para {
+    font-size: 3.5em;
+  }
+  .two26-section-heading,
+  .two26-section-heading-shadow {
+    font-size: 4em;
+  }
+  .two26-projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1em;
+  }
+  .two26-project-card {
+    height: 40em;
+  }
+  .two26-testimonial-card {
+    font-size: 0.75em;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .two26-hero-heading {
+    font-size: 5.2em;
+  }
+  .two26-about-para {
+    max-width: 9.5em;
+    font-size: 3em;
+  }
+  .two26-section-heading,
+  .two26-section-heading-shadow {
+    font-size: 3em;
+  }
+  .two26-projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25em;
+  }
+  .two26-project-card {
+    height: 33em;
+  }
+  .two26-service-block.one,
+  .two26-service-block.four { right: -12%; }
+  .two26-service-block.two { left: -10%; }
+  .two26-service-block.three { right: 0%; }
+  .two26-service-block.five { left: -6%; }
+  .two26-service-block.six { right: -10%; }
+  .two26-service-block.seven { left: -12%; }
+  .two26-service-text {
+    font-size: 3.4em;
+  }
+  .two26-service-para-pill {
+    display: none;
+  }
+  .two26-testimonial-card {
+    width: 40em;
+    font-size: 0.65em;
+    gap: 2.25em;
+    padding: 2em;
+  }
+  .two26-answer-bubble {
+    width: 82%;
+    padding: 1.25em 1.75em;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .two26-hero-heading {
+    font-size: 4.3em;
+  }
+  .two26-projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5em;
+  }
+  .two26-project-card {
+    height: 31em;
+  }
+  .two26-projects-end-para {
+    font-size: 3.2em;
+  }
+  .two26-service-block.one,
+  .two26-service-block.two,
+  .two26-service-block.three,
+  .two26-service-block.four,
+  .two26-service-block.five,
+  .two26-service-block.six,
+  .two26-service-block.seven {
+    left: 0;
+    right: 0;
+  }
+  .two26-service-text {
+    font-size: 2.6em;
+  }
+  .two26-testimonial-card {
+    width: 92%;
+    font-size: 0.68em;
+    padding: 1.75em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

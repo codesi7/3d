@@ -1,0 +1,8 @@
+{
+  "name": "Two26 Studio | Boutique Design Studio",
+  "description": "Two26 is a boutique design studio in Bucharest creating brands with strategy, personality and a healthy obsession for the details.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
